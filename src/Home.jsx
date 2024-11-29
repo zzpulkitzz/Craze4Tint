@@ -148,7 +148,7 @@ export default function Home() {
                 <div className="text-center mb-16 font-light font-roboto">
                     <h3 className="text-lg mb-6 tracking-wide font-[100] font-roboto">JOIN OUR NEWSLETTER</h3>
                     <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-                        <div className="flex gap-4 w-[]">
+                        <div className="flex gap-4">
                             <input
                                 type="email"
                                 placeholder="Email"

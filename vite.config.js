@@ -9,6 +9,9 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
 
-}
+},
+build: {
+  cssCodeSplit: true, // Ensures CSS is split and included correctly
+},
 
 })
