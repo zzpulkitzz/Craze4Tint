@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
     darkMode: ["class"],
-    content: ["./src/**/*.{html,jsx}"],
+    content: ['./index.html',"./src/**/*.{html,jsx}"],
   theme: {
 	screens: {
 
