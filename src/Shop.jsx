@@ -306,7 +306,7 @@ export default function Shop() {
 
         {/* Product grid */}
         <main className="flex-1">
-          <div className="grid xsm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 gap-6">
+          <div className="grid xsm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {products.map((product, index) => 
             
             {
@@ -319,7 +319,7 @@ export default function Shop() {
                 onClick={() => window.location.href = `/shop/${product.id}?name=${product.name}`}
               >
                 <div className="relative">
-                  <img src={product.image} alt={product.name} className="w-full xsm:h-[300px] md:h-[430px] object-cover xl:h-[680px]" />
+                  <img src={product.image} alt={product.name} className="w-full xsm:h-[300px] md:h-[430px] object-cover xl:h-[27vw]" />
                   {product.isBestSeller && (
                     <div className="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 text-xs font-semibold rounded">
                       BEST SELLER
