@@ -24,6 +24,41 @@ export default function Shop() {
   // Create an intersection observer reference
   const observer = useRef();
 
+  function mergeSort(arr) {
+    // Base case: Arrays with a single element are already sorted
+    if (arr.length <= 1) {
+      return arr;
+    }
+  
+    // Split the array into two halves
+    const mid = Math.floor(arr.length / 2);
+    const left = arr.slice(0, mid);
+    const right = arr.slice(mid);
+  
+    // Recursively sort both halves and then merge them
+    return merge(mergeSort(left), mergeSort(right));
+  }
+  
+  function merge(left, right) {
+    const result = [];
+    let leftIndex = 0;
+    let rightIndex = 0;
+  
+    // Compare elements from both arrays and merge them in sorted order
+    while (leftIndex < left.length && rightIndex < right.length) {
+      if (left[leftIndex].priority < right[rightIndex].priority) {
+        result.push(left[leftIndex]);
+        leftIndex++;
+      } else {
+        result.push(right[rightIndex]);
+        rightIndex++;
+      }
+    }
+  
+    // Concatenate any remaining elements
+    return result.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));
+  }
+
   const lastProductRef = useCallback(node => {
     if (loading) return;
     if (observer.current) observer.current.disconnect();
@@ -71,7 +106,7 @@ export default function Shop() {
  
 
 
-  let apiToken=import.meta.env.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN
+ 
   // Function to fetch products with filters
   const fetchMoreProducts = async (msg) => {
     if (loading) return;
@@ -88,6 +123,11 @@ export default function Shop() {
      
       const filteredProducts = data.products.edges
       .map(edge => {
+
+        let price=parseInt(edge.node.priceRange.minVariantPrice.amount)
+        if(price>priceRange[1]){
+          return null
+        }
         const variants = edge.node.variants.edges;
         const availableSizes = []; // Changed from Set to Array
         const availableColors = []; // Changed from Set to Array
@@ -110,7 +150,9 @@ export default function Shop() {
         ) {
           return null;
         }
-      
+
+        
+        
         return {
           id: edge.node.id,
           name: edge.node.title,
@@ -121,7 +163,8 @@ export default function Shop() {
           isBestSeller: edge.node.tags.includes('best-seller'),
        
           availableSizes,
-          availableColors
+          availableColors,
+          priority:parseInt(edge.node.tags[0])
         };
       })
       .filter(product => product !== null);
@@ -164,7 +207,8 @@ export default function Shop() {
   
   useEffect(() => {
     fetchMoreProducts("clear");
-  }, [selectedColors,selectedSizes]); 
+    console.log(priceRange)
+  }, [selectedColors,selectedSizes,priceRange]); 
   console.log(products)
   const sizes = ["XS", "S", "M", "L", "XL"];
   const colors = ["White", "Black", "Pink", "Red", "Blue", "Green"];
@@ -172,15 +216,14 @@ export default function Shop() {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="mx-auto px-6 py-8 absolute top-[220px] w-full">
+    <div className="mx-auto px-6 py-8 absolute md:top-[140px] top-[90px] w-full font-raleway">
       <div className="flex flex-col lg:flex-row lg:justify-between w-full lg:gap-4">
         {/* Sidebar with filters */}
-        <aside className="w-full lg:w-56 space-y-6">
-          <h2 className="text-2xl font-bold">FILTERS</h2>
-          {/* Size Filter */}
+        <aside className="w-full lg:w-56 space-y-2 mb-[15px] font-light ">
+         
           <div className="border rounded-lg overflow-hidden">
             <button 
-              className="w-full px-4 py-2 text-left font-medium flex justify-between items-center"
+              className="w-full px-4 py-2 text-left  flex justify-between items-center"
               onClick={() => setOpenSection(openSection === "size" ? "" : "size")}
             >
               Size
@@ -206,7 +249,7 @@ export default function Shop() {
           {/* Price Filter */}
           <div className="border rounded-lg overflow-hidden">
             <button 
-              className="w-full px-4 py-2 text-left font-medium flex justify-between items-center"
+              className="w-full px-4 py-2 text-left flex justify-between items-center"
               onClick={() => setOpenSection(openSection === "price" ? "" : "price")}
             >
               Price
@@ -233,7 +276,7 @@ export default function Shop() {
           {/* Color Filter */}
           <div className="border rounded-lg overflow-hidden">
             <button 
-              className="w-full px-4 py-2 text-left font-medium flex justify-between items-center"
+              className="w-full px-4 py-2 text-left  flex justify-between items-center"
               onClick={() => setOpenSection(openSection === "color" ? "" : "color")}
             >
               Color
@@ -263,7 +306,7 @@ export default function Shop() {
 
         {/* Product grid */}
         <main className="flex-1">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid xsm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 gap-6">
             {products.map((product, index) => 
             
             {
@@ -276,7 +319,7 @@ export default function Shop() {
                 onClick={() => window.location.href = `/shop/${product.id}?name=${product.name}`}
               >
                 <div className="relative">
-                  <img src={product.image} alt={product.name} className="w-full h-[430px] object-cover" />
+                  <img src={product.image} alt={product.name} className="w-full xsm:h-[300px] md:h-[430px] object-cover xl:h-[680px]" />
                   {product.isBestSeller && (
                     <div className="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 text-xs font-semibold rounded">
                       BEST SELLER
@@ -285,10 +328,10 @@ export default function Shop() {
                
                 </div>
                 <div className="p-3">
-                  <h3 className="text-sm font-semibold mb-2 line-clamp-2">{product.name}</h3>
+                  <h3 className="xl:text-xl font-semibold mb-2 line-clamp-2">{product.name}</h3>
                   <div className="flex justify-between items-center mb-3">
                     <div>
-                      <span className="text-lg font-bold">₹{product.price}</span>
+                      <span className="xl:text-2xl font-bold">₹{product.price}</span>
                       <span className="text-xs text-gray-500 line-through ml-2">
                         ₹{product.originalPrice}
                       </span>

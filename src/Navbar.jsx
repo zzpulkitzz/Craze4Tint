@@ -9,6 +9,7 @@ import { Outlet, Link,useNavigate } from "react-router-dom"
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
+    const [isClicked,setIsClicked]=useState(false)
     const isScroll = useContext(ScrollContext);
     const setIsScroll = useContext(ChangeScrollContext);
     const headRef = useRef();
@@ -103,20 +104,20 @@ export default function Navbar() {
                                                 <div className={`category_container flex flex-row justify-between items-center w-[180px] ml-[100px]
                                                 ${isScroll?"border-[0.6px] shadow-sm bg-white  py-[10px] px-[7px] ":"none"}`}>
                                                    
-                                                        <div className="editorial border-[1px] border-white px-[10px] hover:text-white hover:bg-black hover:scale-105 transition-all duration-300" onClick={()=>{
+                                                   <button className="printed border-[1px] border-white px-[10px] hover:text-white hover:bg-black hover:scale-105 transition-all duration-300" onClick={()=>{
+                                                            console.log("heyyy")
                                                             navigate("/shop?type=printed-oversized-t-shirts", { replace: true })
-                                                            navigate(0)
+                                                        navigate(0)
                                                         }}>
                                                             Printed 
-                                                        </div>
-                                                        <div className="collection border-[1px] border-white px-[10px] hover:text-white hover:bg-black transition-all duration-300 hover:scale-105"
+                                                        </button>
+                                                        <button className="solid border-[1px] border-white px-[10px] hover:text-white hover:bg-black transition-all duration-300 hover:scale-105"
                                                         onClick={()=>{
                                                             navigate("/shop?type=frontpage", { replace: true })
                                                             navigate(0)
                                                         }}>
                                                             Solid 
-                                                        </div>
-                                                 
+                                                        </button>                                      
                                                 
                                                 </div>
                                             </div>
@@ -164,27 +165,54 @@ export default function Navbar() {
                                         HOME
                                     </Link>
                                     <div className="relative group"
-                                        onMouseEnter={() => setIsOpen(true)}
-                                        onMouseLeave={() => setIsOpen(false)}>
-                                        <Link to="/shop" className={`px-0 py-1 text-sm border-0 hover:border-b-[1px] hover:border-solid ml-[5px]   ${isScroll ? "hover:border-black" : "hover:border-white"} transition-all group-hover:text-[17px]`}>
+                                        onClick={()=>{
+                                            setIsClicked((prev)=>{
+                                                return !prev
+                                            })
+                                        }}>
+                                        <div  className={`px-0 py-1 text-sm border-0   ${isScroll ? "hover:border-black" : "hover:border-white"} ${isClicked?"hover:border-b-[1px] hover:border-solid ml-[5px] ":""}transition-all `}>
                                             SHOP
-                                        </Link>
+                                        </div>
                                         <motion.div
-                                            className="absolute left-[-160.5px] top-[26px] w-[100vw] "
+                                            className="absolute left-[-100px] top-[30px] w-[100vw] "
                                             variants={categoryContainerVariants}
                                             initial="hidden"
-                                            animate={isOpen? "visible":"hidden"}
+                                            animate={isClicked? "visible":"hidden"}
                                         >
                                             <div className={`categories font-raleway font-[200] ${isScroll? "bg-none font-[400]" : "bg-[rgb(18,18,18)] shadow-lg "} rounded-sm   pb-[10px] w-[110vw] py-[10px]`}>
-                                                <div className={`category_container flex flex-row justify-between items-center w-[180px] ml-[100px]
+                                                <div className={`category_container flex flex-row justify-between items-center w-[350px] ml-[40px]
                                                 ${isScroll?"border-[0.6px] shadow-sm bg-white  py-[10px] px-[7px] ":"none"}`}>
                                                    
-                                                        <div className="editorial border-[1px] border-white px-[10px] hover:text-white hover:bg-black hover:scale-105 transition-all duration-300">
-                                                            Printed 
-                                                        </div>
-                                                        <div className="collection border-[1px] border-white px-[10px] hover:text-white hover:bg-black transition-all duration-300 hover:scale-105">
-                                                            Solid 
-                                                        </div>
+                                                   <button className="all border-[1px] border-white px-[10px] hover:text-white hover:bg-black hover:scale-105 transition-all duration-300" onClick={()=>{
+                                                            console.log("heyyy")
+                                                            navigate("/shop", { replace: true })
+                                                        navigate(0)
+                                                        }}>
+                                                            All
+                                                        </button>
+                                                        <button className="solid border-[1px] border-white px-[10px] hover:text-white hover:bg-black transition-all duration-300 hover:scale-105"
+                                                        onClick={()=>{
+                                                            navigate("/shop?type=frontpage", { replace: true })
+                                                            navigate(0)
+                                                        }}>
+                                                            Solid
+                                                        </button>
+
+                                                        <button className="printed border-[1px] border-white px-[10px] hover:text-white hover:bg-black hover:scale-105 transition-all duration-300" onClick={()=>{
+                                                            console.log("heyyy")
+                                                            navigate("/shop?type=printed-oversized-t-shirts", { replace: true })
+                                                        navigate(0)
+                                                        }}>
+                                                            Printed
+                                                        </button>
+
+                                                        <button className="hoodies border-[1px] border-white px-[10px] hover:text-white hover:bg-black hover:scale-105 transition-all duration-300" onClick={()=>{
+                                                            console.log("heyyy")
+                                                            navigate("/shop?type=hoodie", { replace: true })
+                                                        navigate(0)
+                                                        }}>
+                                                            Hoodies
+                                                        </button>
                                                  
                                                 
                                                 </div>
