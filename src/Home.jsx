@@ -155,8 +155,8 @@ export default function Home() {
 
         
         
-        <div className="w-[100vw]  px-4   ">
-        <h1 className="hidden sm:block text-4xl tracking-wide mt-4 text-center font-semibold">Winter Collections</h1>
+        <div className="w-[100vw]  px-4  ">
+        <h1 className="block text-xl sm:text-4xl tracking-wide mt-4 text-center font-semibold">Winter Collections</h1>
             <div className="w-full overflow-hidden">
                 <div
                     ref={containerRef}
@@ -206,7 +206,7 @@ export default function Home() {
             </div>
             
             <div className="w-[100vw]  px-4   ">
-            <h1 className="hidden sm:block text-4xl tracking-wide mt-4 text-center font-semibold">Premium Collections</h1>
+            <h1 className="block text-xl sm:text-4xl tracking-wide mt-4 text-center font-semibold">Premium Collections</h1>
             <div className="w-full overflow-hidden">
                 <div
                     ref={containerRef}

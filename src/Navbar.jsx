@@ -72,7 +72,7 @@ export default function Navbar() {
             <motion.div className="bg-[rgb(18,18,18)] p-1 h-[20px] flex justify-center w-[100vw] overflow-hidden" ref={marqueeRef}
                 variants={isScroll ? marqueeVariant2 : marqueeVariant1} initial="hidden" animate="visible"
             >
-                <div className="marquee flex flex-col justify-center items-center mr-[50px] h-[110px]">
+                <div className="marquee flex flex-col justify-center items-center  h-[110px]">
                     <div className="mb-2">FLASH SALE 20%</div>
                     <div className="mb-2">WEAR YOUR CONFIDENCE</div>
                     <div className="mb-2">FLASH SALE 20%</div>
