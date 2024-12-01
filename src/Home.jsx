@@ -160,7 +160,7 @@ export default function Home() {
             <div className="w-full overflow-hidden">
                 <div
                     ref={containerRef}
-                    className="scroll_container flex flex-row justify-around py-8 transition-all duration-300 ease-linear overflow-x-auto w-[100%]"
+                    className="scroll_container flex flex-row gap-4 sm:gap-6 py-8 transition-all duration-300 ease-linear overflow-x-auto w-[100%]"
                 >
                     {winterCarousel.map((product, index) => (
                         <div
@@ -190,7 +190,7 @@ export default function Home() {
                                         ₹{product.node.variants.edges[0].node.compareAtPrice.amount}
                                         </span>
 
-                                        <span className="text-xs text-green-600 ml-2">
+                                        <span className="text-xs text-green-600 sm:ml-2 mr-[12px] sm:mr-[0px]">
                         {Math.round((1 - product.node.priceRange.minVariantPrice.amount / product.node.variants.edges[0].node.compareAtPrice.amount) * 100)}% OFF
                       </span>
                                        
@@ -240,7 +240,7 @@ export default function Home() {
                                         ₹{product.node.variants.edges[0].node.compareAtPrice.amount}
                                         </span>
 
-                                        <span className="text-xs text-green-600 ml-2">
+                                        <span className="text-xs text-green-600 sm:ml-2 mr-[12px] sm:mr-[0px]">
                         {Math.round((1 - product.node.priceRange.minVariantPrice.amount / product.node.variants.edges[0].node.compareAtPrice.amount) * 100)}% OFF
                       </span>
                                        
