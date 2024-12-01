@@ -3,6 +3,7 @@ import { Star, Heart } from 'lucide-react'
 import {redirect, useLocation,useNavigate} from "react-router-dom"
 import {fetchPlease} from "./Fetch.jsx"
 const PRODUCTS_PER_PAGE = 12;
+import Error from './Error.jsx';
 
 export default function Shop() {
   const [products, setProducts] = useState([]);
@@ -196,7 +197,7 @@ export default function Shop() {
     
     setHasMore(data.products.pageInfo.hasNextPage);
   } catch (error) {
-    console.error("Error:", error);
+    console.log("Error:", error.message);
     setError(error.message);
   } finally {
     setLoading(false);
@@ -213,7 +214,7 @@ export default function Shop() {
   const sizes = ["XS", "S", "M", "L", "XL"];
   const colors = ["White", "Black", "Pink", "Red", "Blue", "Green"];
 
-  if (error) return <div>Error: {error}</div>;
+  if (error) return <div className='absolute  w-[100vw]'><Error/></div>;
 
   return (
     <div className="mx-auto px-6 py-8 absolute md:top-[140px] top-[90px] w-full font-raleway">
@@ -306,7 +307,7 @@ export default function Shop() {
 
         {/* Product grid */}
         <main className="flex-1">
-          <div className="grid xsm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid xsm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xsm:gap-3">
             {products.map((product, index) => 
             
             {
@@ -319,7 +320,7 @@ export default function Shop() {
                 onClick={() => window.location.href = `/shop/${product.id}?name=${product.name}`}
               >
                 <div className="relative">
-                  <img src={product.image} alt={product.name} className="w-full xsm:h-[300px] md:h-[430px] object-cover xl:h-[27vw]" />
+                  <img src={product.image} alt={product.name} className="w-full xsm:h-[220px] md:h-[430px] object-cover xl:h-[27vw]" />
                   {product.isBestSeller && (
                     <div className="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 text-xs font-semibold rounded">
                       BEST SELLER
@@ -327,11 +328,11 @@ export default function Shop() {
                   )}
                
                 </div>
-                <div className="p-3">
-                  <h3 className="xl:text-xl font-semibold mb-2 line-clamp-2">{product.name}</h3>
-                  <div className="flex justify-between items-center mb-3">
+                <div className="p-[6px] pl-[9px]">
+                  <h3 className="xl:text-[1.15rem] text-lg xsm:text-[1rem] leading-[1.4rem] font-normal mb-1 line-clamp-2">{product.name}</h3>
+                  <div className="flex justify-between items-center mb-1">
                     <div>
-                      <span className="xl:text-2xl font-bold">₹{product.price}</span>
+                      <span className="xl:text-2xl font-normal xsm:text-sm">₹{product.price}</span>
                       <span className="text-xs text-gray-500 line-through ml-2">
                         ₹{product.originalPrice}
                       </span>

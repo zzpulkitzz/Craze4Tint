@@ -16,7 +16,9 @@ export async function fetchPlease(type,search,cursor){
               products(
                 first:${PRODUCTS_PER_PAGE} , 
                 after: $cursor,
+                sortKey:CREATED_AT
                 query: $search
+                reverse: true
               ) {
                 pageInfo {
                   hasNextPage
