@@ -91,8 +91,10 @@ export default function Navbar() {
                                     <div className="relative group"
                                         onMouseEnter={() => setIsOpen(true)}
                                         onMouseLeave={() => {
-                                           
-                                                setIsOpen(false)
+                                           setTimeout(()=>{
+                                            setIsOpen(false)
+                                           },[200])
+                                                
                                             
                                             
                                             }}>

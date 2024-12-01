@@ -160,7 +160,7 @@ export default function Home() {
             <div className="w-full overflow-hidden">
                 <div
                     ref={containerRef}
-                    className="scroll_container flex flex-row gap-4 sm:gap-6 py-8 transition-all duration-300 ease-linear overflow-x-auto w-[100%]"
+                    className="scroll_container flex flex-row gap-4 sm:gap-6 lg:justify-around py-8 transition-all duration-300 ease-linear overflow-x-auto w-[100%]"
                 >
                     {winterCarousel.map((product, index) => (
                         <div
@@ -190,7 +190,7 @@ export default function Home() {
                                         ₹{product.node.variants.edges[0].node.compareAtPrice.amount}
                                         </span>
 
-                                        <span className="text-xs text-green-600 sm:ml-2 mr-[12px] sm:mr-[0px]">
+                                        <span className="text-xs text-green-600 sm:ml-2 lg:mr-[14px] sm:mr-[0px]">
                         {Math.round((1 - product.node.priceRange.minVariantPrice.amount / product.node.variants.edges[0].node.compareAtPrice.amount) * 100)}% OFF
                       </span>
                                        
@@ -210,7 +210,7 @@ export default function Home() {
             <div className="w-full overflow-hidden">
                 <div
                     ref={containerRef}
-                    className="scroll_container flex flex-row gap-4 py-8 transition-all duration-300 ease-linear overflow-x-auto w-[100%]"
+                    className="scroll_container flex flex-row gap-4 pt-8 pb-2 transition-all duration-300 ease-linear overflow-x-auto w-[100%]"
                 >
                     {prodCarousel.map((product, index) => (
                         <div
@@ -254,7 +254,7 @@ export default function Home() {
                 </div>
             </div>
             
-            <div className="text-center mt-8">
+            <div className="text-center mt-4">
                 <Button variant="outline" className="bg-black text-white hover:bg-gray-800 mb-[20px]" onClick={()=>{
                     navigate("/shop")
                     
@@ -269,7 +269,7 @@ export default function Home() {
      
         <iframe
           ref={iframeRef}
-          className="mx-auto mb-[20px] h-[44.96vw] w-[80vw]"
+          className="mx-auto mb-[20px] h-[45vw] w-[80vw]"
          
           src={`https://www.youtube.com/embed/Cz8S9JgP4JE?mute=1&playlist=Cz8S9JgP4JE&loop=1&enablejsapi=1`}
           title="YouTube video player"
