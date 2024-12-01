@@ -10,8 +10,10 @@ import winterPoster from "./assets/winterPoster.jpg";
 import endOfSeason from "../public/endOfSeason.jpg";
 import banner from "./assets/banner.png";
 import { fetchPlease } from "./Fetch";
+import {useNavigate} from "react-router-dom"
 
 export default function Home() {
+    const navigate=useNavigate()
     const mainRef = useRef(null);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isHovered, setIsHovered] = useState(false);
@@ -254,8 +256,9 @@ export default function Home() {
                 </div>
             </div>
             
-            <div className="text-center mt-4">
-                <Button variant="outline" className="bg-black text-white hover:bg-gray-800 mb-[20px]" onClick={()=>{
+            <div className="text-center mt-4 hover:scale-110">
+                <Button variant="outline" className="bg-black text-white hover:bg-gray-800 hover:text-white mb-[20px] " onClick={()=>{
+                    console.log("vfs")
                     navigate("/shop")
                     
                 }}>
