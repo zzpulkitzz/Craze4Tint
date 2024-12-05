@@ -99,9 +99,7 @@ const UserProfile = () => {
       {/* Sidebar */}
       <div className="sm:block hidden w-64 bg-white p-4 text-gray-800 font-extralight absolute top-[210px] left-[35px] rounded-2xl shadow-lg">
         <div className="mb-8">
-          <div className="h-20 w-20 rounded-full bg-white flex items-center justify-center text-2xl font-bold">
-            PG
-          </div>
+         {currentUser.firstName}
           <h2 className="mt-4 text-xl font-semibold">{currentUser?"":currentUser["firstName"]}</h2>
           <p className="text-black text-sm">04:41:38 AM</p>
         </div>

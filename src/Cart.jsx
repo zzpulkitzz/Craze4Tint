@@ -4,7 +4,8 @@ import { Input } from "@/components/ui/input"
 import { X, MessageSquare } from 'lucide-react'
 
 import { useEffect,createContext } from 'react'
-
+import secureCheckout from "./assets/secureCheckout.png"
+import Footer from "./Footer"
 const apiToken=import.meta.env.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN
 
 const createStorefrontClient = () => {
@@ -37,6 +38,7 @@ export default function ShoppingCart() {
   useEffect(() => {
     const initializeCart = async () => {
       const cartId = localStorage.getItem('cartId');
+      console.log(cartId)
       if (cartId) {
         await fetchCart(cartId);
       } 
@@ -68,6 +70,7 @@ export default function ShoppingCart() {
                         currencyCode
                       }
                       product {
+                        id
                         title
                         featuredImage {
                           url
@@ -88,6 +91,7 @@ export default function ShoppingCart() {
         const formattedItems = data.cart.lines.edges.map(({ node }) => ({
           merchandiseId:node.merchandise.id,
           id: node.id,
+          productId:node.merchandise.product.id,
           name: node.merchandise.product.title,
           price: parseFloat(node.merchandise.priceV2.amount),
           quantity: node.quantity,
@@ -197,7 +201,7 @@ export default function ShoppingCart() {
   }else{
   console.log(isLoading)
   return (
-    <div className="max-w-4xl mx-auto p-4 absolute top-[205px] w-[100%]">
+    <div className="max-w-[100vw] mx-auto px-[16px] sm:px-[24px] lg:px-[32px] absolute top-[205px] w-[100%]">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-xl font-semibold">SHOPPING BAG ({cartItems.length})</h1>
         <button className="text-sm underline">FAVOURITES</button>
@@ -205,8 +209,8 @@ export default function ShoppingCart() {
       
       <div className="space-y-6">
         {cartItems.map(item => (
-          <div key={item.id} className="flex border-b pb-6" onClick={() => window.location.href = `/shop/${item.merchandiseId}?name=${item.name}`}>
-            <img src={item.image} alt={item.name} className="w-40 h-52 object-cover mr-6" />
+          <div key={item.id} className="flex border-b pb-6" >
+            <img src={item.image} alt={item.name} className="w-40 h-52 object-cover mr-6 " onClick={() => window.location.href = `/shop/${item.productId}?name=${item.name}`}/>
             <div className="flex-grow">
               <div className="flex justify-between items-start">
                 <div>
@@ -258,14 +262,15 @@ export default function ShoppingCart() {
         <p className="text-xl font-semibold">₹ {total.toFixed(2)}</p>
       </div>
       
-      <Button className="w-full mt-6 bg-black text-white hover:bg-gray-800" onClick={onCheckout}>
-        CONTINUE
+      <Button className="w-full mt-6 bg-black text-white hover:bg-gray-800 tracking-widest font-raleway font-[500]" onClick={onCheckout}>
+        CHECKOUT
       </Button>
-      
-      <Button variant="outline" size="icon" className="fixed bottom-4 right-4 rounded-full">
-        <MessageSquare className="h-6 w-6" />
-        <span className="sr-only">Chat</span>
-      </Button>
+      <div className="secureCheckout">
+        <img src={secureCheckout} className="w-[40%] mx-auto mt-[10px]"/>
+      </div>
+      <div className='relative top-[32px] left-[-16px] sm:left-[-24px] lg:left-[-32px] '>
+        <Footer/>
+    </div>
     </div>
   )}
 }

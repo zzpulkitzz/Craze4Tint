@@ -6,6 +6,7 @@ import React, { useState, useContext } from "react";
 import { useRef } from 'react';
 import { ScrollContext, ChangeScrollContext } from "./contextProvider";
 import { Outlet, Link,useNavigate } from "react-router-dom"
+import WhatsAppChat from "./Whatsapp";
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
@@ -16,11 +17,13 @@ export default function Navbar() {
     const marqueeRef = useRef(null);
     const subNavRef = useRef(null);
     const [searchText,setSearchText]=useState("")
+    const [isTshirtOpen_mobile,setIsTshirtOpen_mobile]=useState(false)
     console.log(typeof searchText)
     const headerVariant1 = { hidden: { opacity: 0.4 }, visible: { backgroundColor: "rgb(18,18,18)", opacity: 1, transition: { duration: 0.5 } } };
     const headerVariant2 = { hidden: { opacity: 0.4 }, visible: { backgroundColor: "rgba(255,255,255,0)", opacity: 1, transition: { duration: 0.5 } } };
     const marqueeVariant1 = { "hidden": { height: 0, padding: 0, backgroundColor: "rgb(255, 255, 255, 0)", opacity: 0.4 }, "visible": { height: 20, padding: 4, opacity: 1, transition: { duration: 0.3 }, backgroundColor: 'rgba(18,18,18)' } };
     const marqueeVariant2 = { "hidden": { height: 20, opacity: 1, backgroundColor: "rgb(18,18,18)", padding: 4 }, "visible": { height: 0, opacity: 0.4, backgroundColor: "rgba(255,255,255,0)", transition: { duration: 0.3 }, padding: 0 } };
+    const [isTshirtOpen, setIsTshirtOpen] = useState(false);
 
     const categoryContainerVariants = {
         hidden: { 
@@ -37,7 +40,7 @@ export default function Navbar() {
             }
         }
     };
-
+    
     useEffect(() => {
         window.addEventListener("scroll", () => {
             if (isScroll === false) {
@@ -61,9 +64,9 @@ export default function Navbar() {
     
     }
 
+    console.log(isClicked,isTshirtOpen_mobile)
 
-
-    return <div>
+    return <div className="">
         <motion.header className="w-[100vw] z-[10] fixed text-white" ref={headRef} key={isScroll}
             variants={isScroll ? headerVariant2 : headerVariant1}
             initial="hidden"
@@ -88,67 +91,96 @@ export default function Navbar() {
                                     <Link to="/" className={`px-0 py-1 text-sm border-0 hover:border-b-[1px] transition-all hover:border-solid ${isScroll ? "hover:border-black" : "hover:border-white"} hover:scale-110 transition-all`}>
                                         HOME
                                     </Link>
-                                    <div className="relative group"
-                                        onMouseEnter={() => setIsOpen(true)}
-                                        onMouseLeave={() => {
-                                           setTimeout(()=>{
-                                            setIsOpen(false)
-                                           },[200])
-                                                
-                                            
-                                            
-                                            }}>
-                                        <Link to="/shop" className={`px-0 py-1 text-sm border-0 hover:border-b-[1px] hover:border-solid ml-[5px]   ${isScroll ? "hover:border-black" : "hover:border-white"} transition-all group-hover:text-[17px]`}>
-                                            SHOP
-                                        </Link>
-                                        <motion.div
-                                            className="absolute left-[-160.5px] top-[20px] w-[100vw] h-[70px] "
-                                            variants={categoryContainerVariants}
-                                            initial="hidden"
-                                            animate={isOpen?"visible":"hidden"}
-                                        >
-                                            
-                                            <div className={`categories font-raleway font-[200] ${isScroll? "bg-none font-[400]" : "bg-[rgb(18,18,18)] shadow-lg "} rounded-sm mt-[35px] w-[110vw] pb-[10px] `}>
-                                                <div className={`category_container flex flex-row justify-between items-center w-[350px] ml-[40px]
-                                                ${isScroll?"border-[0.6px] shadow-sm bg-white  py-[10px] px-[7px] ":"none"}`}>
-                                                   
-                                                   <button className="all border-[1px] border-white px-[10px] hover:text-white hover:bg-black hover:scale-105 transition-all duration-300" onClick={()=>{
-                                                            console.log("heyyy")
-                                                            navigate("/shop", { replace: true })
-                                                        navigate(0)
-                                                        }}>
-                                                            All
-                                                        </button>
-                                                        <button className="solid border-[1px] border-white px-[10px] hover:text-white hover:bg-black transition-all duration-300 hover:scale-105"
-                                                        onClick={()=>{
-                                                            navigate("/shop?type=frontpage", { replace: true })
-                                                            navigate(0)
-                                                        }}>
-                                                            Solid
-                                                        </button>
+                                     <div className="relative group" onMouseEnter={() => setTimeout(()=>{
+                                            setIsOpen(true)
+                                     },[100])} onMouseLeave={() => setTimeout(()=>{
+                                        setIsTshirtOpen(false)
+                                        setIsOpen(false)
+                                 },[110])}>
+            <Link to="/shop" className={`px-0 py-1 text-sm border-0 hover:border-b-[1px] hover:border-solid ml-[5px] ${isScroll ? "hover:border-black" : "hover:border-white"} transition-all `}>
+                SHOP
+            </Link>
+            <motion.div
+                className="absolute left-[-160.5px] top-[20px] w-[100vw] h-[70px]"
+                variants={categoryContainerVariants}
+                initial="hidden"
+                animate={isOpen?"visible":"hidden"}
+            >
+                <div className={`categories font-raleway font-[200] ${isScroll ? "bg-none font-[400]" : "bg-[rgb(18,18,18)] shadow-lg"} rounded-sm mt-[35px] w-[110vw] pb-[10px]`}>
+                    <div className={`category_container inline-flex flex-row justify-between items-center  ml-[40px] ${isScroll ? "border-[0.6px] shadow-sm bg-white py-[10px] px-[7px]" : "none"} pr-[20px]`}>
+                        <button 
+                            className="all border-[1px] border-white px-[10px] hover:text-white hover:bg-black hover:scale-105 transition-all duration-300 mr-[10px]"
+                            onClick={() => {
+                                navigate("/shop", { replace: true });
+                                navigate(0);
+                            }}
+                        >
+                            All
+                        </button>
 
-                                                        <button className="printed border-[1px] border-white px-[10px] hover:text-white hover:bg-black hover:scale-105 transition-all duration-300" onClick={()=>{
-                                                            console.log("heyyy")
-                                                            navigate("/shop?type=printed-oversized-t-shirts", { replace: true })
-                                                        navigate(0)
-                                                        }}>
-                                                            Printed
-                                                        </button>
+                        <div className="relative flex flex-row ">
+                            <button 
+                                className={`tshirts border-[1px] border-white px-[10px] hover:text-white hover:bg-black  transition-all duration-300 ${isTshirtOpen? "scale-[1.15]":"null"}`}
+                                onMouseEnter={() => {
+                                        console.log("cdsv")
+                                        setIsTshirtOpen(true)
+                                    }}
+                                
+                                
+                                
+                            >
+                                T-shirts
+                            </button>
+                             {isTshirtOpen?(
+                                <div 
+                                    
+                                    className=" flex flex-row "
+                                    onMouseEnter={() => {
+                                        setIsTshirtOpen(true)}}
+                                    
+                                    
+                                >
+                                    <motion.button 
+                                        animate={{marginLeft:10,opacity:1}}
+                                        initial={{opacity:0.1}}
+                                        className={`block w-full text-left px-2  hover:bg-black hover:text-white transition-all duration-150  ${isScroll?null:"border-white border-[1px]"} hover:scale-105`}
+                                        onClick={() => {
+                                            navigate("/shop?type=frontpage", { replace: true });
+                                            navigate(0);
+                                        }}
+                                    >
+                                        Solid
+                                    </motion.button>
+                                    <motion.button 
+                                        animate={{marginLeft:10,opacity:1,transitionDuration:'1s'}}
+                                        initial={{opacity:0.1}}
+                                        className="block w-full text-left px-2  hover:bg-black hover:text-white transition-all duration-150 border-[1px] border-white hover:scale-105"
+                                        onClick={() => {
+                                            navigate("/shop?type=printed-oversized-t-shirts", { replace: true });
+                                            navigate(0);
+                                        }}
+                                    >
+                                        Printed
+                                    </motion.button>
+                                </div>
+                            ):null}
+                        </div>
 
-                                                        <button className="hoodies border-[1px] border-white px-[10px] hover:text-white hover:bg-black hover:scale-105 transition-all duration-300" onClick={()=>{
-                                                            console.log("heyyy")
-                                                            navigate("/shop?type=hoodie", { replace: true })
-                                                        navigate(0)
-                                                        }}>
-                                                            Hoodies
-                                                        </button>
-                                                 
-                                                
-                                                </div>
-                                            </div>
-
-                                        </motion.div>
-                                    </div>
+                        <motion.button 
+                            initial={isTshirtOpen?{position:'relative',left:-100}:null}
+                            animate={isTshirtOpen?{position:'relative',left:0}:null}
+                            className="hoodies border-[1px] border-white px-[10px] hover:text-white hover:bg-black hover:scale-105 transition-all duration-300 mr-[20px] ml-[10px]"
+                            onClick={() => {
+                                navigate("/shop?type=hoodie", { replace: true });
+                                navigate(0);
+                            }}
+                        >
+                            Hoodies
+                        </motion.button>
+                    </div>
+                </div>
+            </motion.div>
+        </div>
                                     <Link to="/contact" className={`px-0 py-1 text-sm border-0 hover:border-b-[1px] transition-all hover:border-solid ml-[10px] ${isScroll ? "hover:border-black" : "hover:border-white"} hover:scale-110 transition-all`}>
                                         CONTACT
                                     </Link>
@@ -186,17 +218,17 @@ export default function Navbar() {
                 </div>
             </nav>
             <div className="block md:hidden sm:ml-[20px] pb-[10px] ml-[0px]">
-                                <div className={`font_target sm:ml-10 ml-[15px] flex items-baseline space-x-4 relative z-10 tracking-wide ${isScroll ? "text-black font-[500]" : "text-white font-light"}`}>
+                                <div className={`font_target  ml-[15px] flex items-baseline space-x-4 relative z-10 tracking-wide ${isScroll ? "text-black font-[500]" : "text-white font-light"}`}>
                                     <Link to="/" className={`px-0 py-1 text-sm border-0 hover:border-b-[1px] transition-all hover:border-solid ${isScroll ? "hover:border-black" : "hover:border-white"} hover:scale-110 transition-all`}>
                                         HOME
                                     </Link>
                                     <div className="relative group"
-                                        onClick={()=>{
+                                        >
+                                        <div  className={`px-0 py-1 text-sm border-0   ${isScroll ? "hover:border-black" : "hover:border-white"} ${isClicked?"hover:border-b-[1px] hover:border-solid ml-[5px] ":""}transition-all `} onClick={()=>{
                                             setIsClicked((prev)=>{
                                                 return !prev
                                             })
                                         }}>
-                                        <div  className={`px-0 py-1 text-sm border-0   ${isScroll ? "hover:border-black" : "hover:border-white"} ${isClicked?"hover:border-b-[1px] hover:border-solid ml-[5px] ":""}transition-all `}>
                                             SHOP
                                         </div>
                                         <motion.div
@@ -206,33 +238,66 @@ export default function Navbar() {
                                             animate={isClicked? "visible":"hidden"}
                                         >
                                             <div className={`categories font-raleway font-[200] ${isScroll? "bg-none font-[400]" : "bg-[rgb(18,18,18)] shadow-lg "} rounded-sm   pb-[10px] w-[110vw] py-[10px]`}>
-                                                <div className={`category_container flex flex-row justify-between items-center w-[350px] ml-[40px]
+                                                <div className={`category_container inline-flex flex-row justify-between items-center  ml-[40px]
                                                 ${isScroll?"border-[0.6px] shadow-sm bg-white  py-[10px] px-[7px] ":"none"}`}>
                                                    
-                                                   <button className="all border-[1px] border-white px-[10px] hover:text-white hover:bg-black hover:scale-105 transition-all duration-300" onClick={()=>{
+                                                   <button className="all border-[1px] border-white px-[10px] hover:text-white hover:bg-black hover:scale-105 transition-all duration-300 mr-[10px]" onClick={()=>{
                                                             console.log("heyyy")
                                                             navigate("/shop", { replace: true })
                                                         navigate(0)
                                                         }}>
                                                             All
                                                         </button>
-                                                        <button className="solid border-[1px] border-white px-[10px] hover:text-white hover:bg-black transition-all duration-300 hover:scale-105"
-                                                        onClick={()=>{
-                                                            navigate("/shop?type=frontpage", { replace: true })
-                                                            navigate(0)
-                                                        }}>
-                                                            Solid
-                                                        </button>
 
-                                                        <button className="printed border-[1px] border-white px-[10px] hover:text-white hover:bg-black hover:scale-105 transition-all duration-300" onClick={()=>{
-                                                            console.log("heyyy")
-                                                            navigate("/shop?type=printed-oversized-t-shirts", { replace: true })
-                                                        navigate(0)
-                                                        }}>
-                                                            Printed
-                                                        </button>
+                                                        <div className="relative flex flex-row ">
+                            <button 
+                                className={`tshirts border-[1px] border-white px-[10px] hover:text-white hover:bg-black  transition-all duration-300 ${isTshirtOpen? "scale-[1.15]":"null"}`}
+                                onClick={() => {
+                                        
+                                        setIsTshirtOpen_mobile((prev)=>!prev)
+                                    }}
+                                
+                                
+                            >
+                                T-shirts
+                            </button>
+                             {isTshirtOpen_mobile?(
+                                <div 
+                                    
+                                    className=" flex flex-row "
+                                    
+                                    
+                                    
+                                >
+                                    <motion.button 
+                                        animate={{marginLeft:10,opacity:1}}
+                                        initial={{opacity:0.1}}
+                                        className={`block w-full text-left px-2  hover:bg-black hover:text-white transition-all duration-150  ${isScroll?null:"border-white border-[1px]"} hover:scale-105`}
+                                        onClick={() => {
+                                            navigate("/shop?type=frontpage", { replace: true });
+                                            navigate(0);
+                                        }}
+                                    >
+                                        Solid
+                                    </motion.button>
+                                    <motion.button 
+                                        animate={{marginLeft:10,opacity:1,transitionDuration:'1s'}}
+                                        initial={{opacity:0.1}}
+                                        className="block w-full text-left px-2  hover:bg-black hover:text-white transition-all duration-150 border-[1px] border-white hover:scale-105"
+                                        onClick={() => {
+                                            navigate("/shop?type=printed-oversized-t-shirts", { replace: true });
+                                            navigate(0);
+                                        }}
+                                    >
+                                        Printed
+                                    </motion.button>
+                                </div>
+                            ):null}
+                        </div>
 
-                                                        <button className="hoodies border-[1px] border-white px-[10px] hover:text-white hover:bg-black hover:scale-105 transition-all duration-300" onClick={()=>{
+
+                                                      
+                                                        <button className="hoodies border-[1px] border-white px-[10px] hover:text-white hover:bg-black hover:scale-105 transition-all duration-300 mr-[20px] ml-[10px]" onClick={()=>{
                                                             console.log("heyyy")
                                                             navigate("/shop?type=hoodie", { replace: true })
                                                         navigate(0)
@@ -251,6 +316,7 @@ export default function Navbar() {
                                 </div>
                             </div>
         </motion.header>
+        <WhatsAppChat/>
         <Outlet />
     </div>
 }

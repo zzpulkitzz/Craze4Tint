@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { useNavigate } from 'react-router-dom';
 import {HandleLoginContext} from "./Login.jsx"
 import { useContext } from 'react';
+import { Loader2 } from "lucide-react";
 
 
 export default function Signup() {
@@ -15,9 +16,15 @@ export default function Signup() {
   const [error, setError] = useState('');
   
   const navigate = useNavigate();
-  const {handleLogin,getUseInfo} = useContext(HandleLoginContext);
+  const {handleLogin,getUseInfo,isLoading,chngIsLoading} = useContext(HandleLoginContext);
 
   const handleSubmit = async (e) => {
+
+  
+    chngIsLoading(true);
+     
+
+
     e.preventDefault();
   
         const mutation = `
@@ -80,16 +87,19 @@ export default function Signup() {
             setError(null)
             },[3000])
             throw error;
+          } finally {
+            chngIsLoading(false);
           }
 
 }
 
   return (
     
-      <div className="p-[30px] h-[56vh] w-[350px] md:w-[450px]">
+      <div className="p-[30px]  w-[350px] md:w-[450px]">
         <h1 className="text-l font-light text-center text-gray-700">Register</h1>
        
-        <form onSubmit={handleSubmit} className="flex flex-col justify-between h-[330px] mt-[20px]">
+        <form onSubmit={handleSubmit} className="flex flex-col justify-between 
+        h-[330px] mt-[20px]">
         <div>
             <Label htmlFor="Name" className="text-sm font-light text-gray-700">
               Name
@@ -100,6 +110,7 @@ export default function Signup() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
+              disabled={isLoading}
               className="mt-1  w-full border-gray-400   border-0 border-b-[1px] focus:border-black rounded-[0px]"
             />
           </div>
@@ -114,6 +125,7 @@ export default function Signup() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              disabled={isLoading}
               className="mt-1  w-full border-gray-400   border-0 border-b-[1px] focus:border-black rounded-[0px]"
             />
           </div>
@@ -127,15 +139,23 @@ export default function Signup() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              disabled={isLoading}
               className="mt-1 w-full border-gray-400 focus:border-black focus:ring-0 border-0 border-b-[1px] rounded-[0px]"
             />
           </div>
           
           <Button type="submit" className="w-full bg-black text-white hover:bg-gray-800 font-light">
-            REGISTER
+          {isLoading ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Registering...
+                      </>
+                    ) : (
+                      'REGISTER'
+                    )}
           </Button>
         </form>
         {error && <p className="text-red-500 text-sm text-center mb-4">{error}</p>}
       </div>
 
-  );}
+  )}

@@ -17,12 +17,18 @@ import MyWishlist from "./MyWishlist"
 import UserInfo from "./UserInfo"
 import NewAddress from "./NewAddress"
 import Addresses from './Addresses'
+import Footer from './Footer'
 
 export default function App() {
- 
-localStorage.setItem("currentUser","null")
+  
+if(localStorage.getItem("currentUser")==null){
+  console.log("lolla")
+  localStorage.setItem("currentUser","null")
+}
 
-  return <div>
+
+  return <div className=''>
+    <div className=' '>
     <ScrollContextProvider>
     <RouterProvider router={createBrowserRouter(createRoutesFromElements(
 
@@ -54,9 +60,13 @@ localStorage.setItem("currentUser","null")
       <Route  path="test" element={<Test/>}/>
     
     </Route>
+    
+    
 
 ))} />
   </ScrollContextProvider>
+  
+  </div>
 </div>
 
 }

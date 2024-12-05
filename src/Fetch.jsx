@@ -1,5 +1,6 @@
-export async function fetchPlease(type,search,cursor){
-    const PRODUCTS_PER_PAGE = 12;
+export async function fetchPlease(type,search,cursor,products_per_page,sort_method){
+    products_per_page = products_per_page==null?`12`:products_per_page
+    sort_method = sort_method==null?`CREATED_AT`:sort_method
     let apiToken=import.meta.env.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN
     if(type===null){
         try{
@@ -14,9 +15,9 @@ export async function fetchPlease(type,search,cursor){
         body: JSON.stringify({
             query: `query GetProducts($cursor: String, $search:String) {
               products(
-                first:${PRODUCTS_PER_PAGE} , 
+                first:${products_per_page} , 
                 after: $cursor,
-                sortKey:CREATED_AT
+                sortKey:${sort_method}
                 query: $search
                 reverse: true
               ) {
@@ -41,7 +42,7 @@ export async function fetchPlease(type,search,cursor){
                         currencyCode
                       }
                     }
-                    images(first: 1) {
+                    images(first: 5) {
                       edges {
                         node {
                           url
@@ -110,7 +111,7 @@ export async function fetchPlease(type,search,cursor){
                         id
                         title
                     products(
-                      first:${PRODUCTS_PER_PAGE} , 
+                      first:${products_per_page} , 
                       after: $cursor,
                       
                     ) {
@@ -135,7 +136,7 @@ export async function fetchPlease(type,search,cursor){
                               currencyCode
                             }
                           }
-                          images(first: 1) {
+                          images(first: 5) {
                             edges {
                               node {
                                 url

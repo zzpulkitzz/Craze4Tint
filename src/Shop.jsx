@@ -161,6 +161,7 @@ export default function Shop() {
           originalPrice: edge.node.variants.edges[0]?.node.compareAtPrice?.amount || 
                         (parseFloat(edge.node.priceRange.minVariantPrice.amount) * 1.5),
           image: edge.node.images.edges[0]?.node.url,
+          image2:edge.node.images.edges[1]?.node.url,
           isBestSeller: edge.node.tags.includes('best-seller'),
        
           availableSizes,
@@ -319,13 +320,14 @@ export default function Shop() {
                 className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer"
                 onClick={() => window.location.href = `/shop/${product.id}?name=${product.name}`}
               >
-                <div className="relative">
-                  <img src={product.image} alt={product.name} className="w-full xsm:h-[220px] md:h-[430px] object-cover xl:h-[27vw]" />
-                  {product.isBestSeller && (
+                <div className="relative overflow-hidden">
+                  <img src={product.image} alt={product.name} className="w-full xsm:h-[220px] md:h-[430px] object-cover xl:h-[27vw] opacity-100 hover:opacity-0" />
+                  <img src={product.image2} alt={product.name} className="absolute top-0 w-full xsm:h-[220px] md:h-[430px] object-cover xl:h-[27vw] opacity-0 hover:opacity-100 transition-all duration-300" />
+                  {/* {product.isBestSeller && (
                     <div className="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 text-xs font-semibold rounded">
                       BEST SELLER
                     </div>
-                  )}
+                  )} */}
                
                 </div>
                 <div className="p-[6px] pl-[9px]">
