@@ -101,7 +101,7 @@ export default function Navbar() {
                 SHOP
             </Link>
             <motion.div
-                className="absolute left-[-160.5px] top-[20px] w-[100vw] h-[70px]"
+                className="absolute left-[-160.5px] top-[18px] w-[100vw] h-[70px]"
                 variants={categoryContainerVariants}
                 initial="hidden"
                 animate={isOpen?"visible":"hidden"}
