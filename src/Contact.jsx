@@ -17,7 +17,7 @@ export default function ContactForm() {
   }
 
   return (
-    <div className="max-w-[500px] w-[50vw] mx-auto p-4 absolute top-[205px] left-[300px]">
+    <div className="sm:w-[500px] w-[350px] mx-auto p-8 absolute top-[170px] left-[50vw] translate-x-[-175px] sm:translate-x-[-250px] translate-y-[10px] sm:translate-y-[10px] bg-gray-100 text-black font-raleway px-[40px] shadow-md">
       <h1 className="text-3xl font-semibold text-center mb-6">Contact</h1>
       <div className="mb-6">
         <p className="text-sm">Email: Shynenterprises.info@gmail.com</p>
@@ -79,8 +79,8 @@ export default function ContactForm() {
             className="w-full border-gray-300"
           />
         </div>
-        <div>
-          <Button type="submit" className="bg-black text-white hover:bg-gray-800">
+        <div className='flex justify-center'>
+          <Button type="submit" className="bg-black text-white hover:bg-gray-200 hover:text-black">
             Send
           </Button>
         </div>
