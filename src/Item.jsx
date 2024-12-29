@@ -13,6 +13,8 @@ import Footer from './Footer';
 import measure from "./assets/measure.png"
 import sizeChart from "./assets/sizeChart.png"
 import {X} from "lucide-react"
+import Carousel from './components/ui/Carousel.jsx';
+
 
 const createStorefrontClient = () => {
   return {
@@ -93,7 +95,6 @@ const visibleThumbnails = 4
 // Decode the parameter (to handle URL-encoded characters)
 const prodName = decodeURIComponent(productName);
 
- 
 
 
   useEffect(() => {
@@ -444,20 +445,28 @@ const prodName = decodeURIComponent(productName);
     setStartIndex(Math.min(product.images.length - visibleThumbnails, startIndex + 1))
   }
  
-
+ 
 
  
 
   return (
  
-    <div className="w-screen mx-auto px-4 sm:px-6 lg:px-8 py-8 absolute sm:top-[120px] md:top-[110px] top-[90px]">
+    <div className="w-screen  px-4 sm:px-6 lg:px-8  py-8 absolute sm:top-[120px] md:top-[110px] top-[90px] xl:flex xl:justify-center xl:items-center xl:flex-col">
+      <div className="w-[100%] xl:max-w-[1532px] ">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Product Images */}
-        <div className=''>
+
+
+        <div className='block sm:hidden w-[100%]'>
+        <Carousel images={product.images} />
+        </div>
+
+
+        <div className='hidden sm:block'>
         <div className="flex gap-4 w-[100%]  ">
       {/* Thumbnails */}
       
-      <div className="flex flex-col gap-2  ">
+      <div className=" ">
      
      
         <div className="overflow-hidden relative">
@@ -492,7 +501,7 @@ const prodName = decodeURIComponent(productName);
         <img
           src={product.images[selectedImage].url}
           alt={product.images[selectedImage].alt}
-          className=" w-[100%] sticky top-10"
+          className=" main_image w-[100%] sticky top-10"
         />
       </div>
      
@@ -665,8 +674,9 @@ const prodName = decodeURIComponent(productName);
 
                 </div>
                 </div>
-                
+                </div>
     <div className='relative top-[32px] left-[-16px] sm:left-[-24px] lg:left-[-32px] '>
+      
     <Footer/>
     </div>
     {isFade?(<div><div className=' flex justify-center items-center fixed top-0 w-screen h-screen z-50'>

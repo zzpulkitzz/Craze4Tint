@@ -17,8 +17,7 @@ import MyWishlist from "./MyWishlist"
 import UserInfo from "./UserInfo"
 import NewAddress from "./NewAddress"
 import Addresses from './Addresses'
-import Footer from './Footer'
-
+import Error from "./Error"
 export default function App() {
   
 if(localStorage.getItem("currentUser")==null){
@@ -58,7 +57,7 @@ if(localStorage.getItem("currentUser")==null){
       
       <Route path="/cart" element={<Cart/>}/>
       <Route  path="test" element={<Test/>}/>
-    
+      <Route path="*" element={<Error/>}/>
     </Route>
     
     

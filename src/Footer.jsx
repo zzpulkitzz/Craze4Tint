@@ -38,21 +38,17 @@ export default function Footer(){
 
         {/* Social Links */}
         <div className="flex justify-center gap-8 mb-12">
-            <a href="/instagram" className="hover:text-gray-600">
+            <a href="https://www.instagram.com/craze4tint/" className="hover:text-gray-600" target="_blank" 
+            rel="noopener noreferrer">
                 <Instagram className="w-5 h-5 hover:scale-125 transition-all" />
             </a>
-            <a href="/facebook" className="hover:text-gray-600">
-                <Facebook className="w-5 h-5 hover:scale-125 transition-all" />
-            </a>
-            <a href="/twitter" className="hover:text-gray-600">
-                <Twitter className="w-5 h-5 hover:scale-125 transition-all" />
-            </a>
-            <a href="/youtube" className="hover:text-gray-600">
+           
+           
+            <a href="https://www.youtube.com/@Craze4Tint" target="_blank" 
+            rel="noopener noreferrer" className="hover:text-gray-600">
                 <Youtube className="w-5 h-5 hover:scale-125 transition-all" />
             </a>
-            <a href="/spotify" className="hover:text-gray-600">
-                <Music className="w-5 h-5 hover:scale-125 transition-all" />
-            </a>
+           
         </div>
 
         {/* Company Info */}
