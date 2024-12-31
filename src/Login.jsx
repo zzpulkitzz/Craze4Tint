@@ -10,6 +10,12 @@ import Footer from './Footer';
 import { getFirestore, doc, setDoc ,getDoc} from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import { AuthContext } from './contextProvider';
+import { 
+  getAuth, 
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut as firebaseSignOut, 
+} from 'firebase/auth';
 export const HandleLoginContext = createContext()
 
 export default function Login() {
@@ -25,8 +31,9 @@ export default function Login() {
     measurementId: "G-X1J18V9CZW"
   };
   const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
   const db = getFirestore(app);
-
+  const {handleLoginWithFirebase,handleSignupWithFirebase,getCartIdForUser}=useContext(AuthContext)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -34,15 +41,16 @@ export default function Login() {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     
-    const {currentUser,changeCurrentUser}=useContext(AuthContext)
-   
+  
+    
     const apiToken = import.meta.env.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN;
-
+    
     const onsubmit = async(e) => {
       e.preventDefault();
       setIsLoading(true);
       try {
         await handleLogin(email, password);
+        
       } catch (err) {
         // Error is handled in handleLogin
       } finally {
@@ -88,12 +96,11 @@ export default function Login() {
             }),
           });
           let data = await response.json();
-          console.log(data);
-          console.log(data.data.customerAccessTokenCreate);
+          
           if (data.data.customerAccessTokenCreate.customerUserErrors.length === 0) {
             localStorage.setItem("token", data.data.customerAccessTokenCreate.customerAccessToken.accessToken);
+            await handleLoginWithFirebase(email,password)
             await getUserInfo(data.data.customerAccessTokenCreate.customerAccessToken.accessToken);
-            
             return null;
           } else {
             throw new Error(data.data.customerAccessTokenCreate.customerUserErrors[0].message);
@@ -107,6 +114,9 @@ export default function Login() {
       }
     }
 
+    
+
+    
     async function getUserInfo(token) {
       console.log(token);
       const userInfoQuery = `query {
@@ -145,7 +155,7 @@ export default function Login() {
           }),
         });
         let data = await response.json();
-        changeCurrentUser(data.data.customer);
+     
         console.log(data.data.customer);
         let userInfo = JSON.stringify(data.data.customer);
         localStorage.setItem("currentUser", userInfo);
@@ -160,32 +170,12 @@ export default function Login() {
       }
     }
 
-    const getCartIdForUser = async (email) => {
-      try {
-        // Get reference to the user's document
-        const userCartRef = doc(db, 'userCarts', email);
-        
-        // Get the document
-        const docSnap = await getDoc(userCartRef);
-        
-        if (docSnap.exists()) {
-          // Document exists - return the cartId
-          return docSnap.data().cartId;
-        } else {
-          // No document found for this email
-          console.log("No cart found for this user");
-          return null;
-        }
-      } catch (error) {
-        console.error("Error fetching cart ID:", error);
-        return null;
-      }
-    }
+    
 
     
 
   return (
-    <HandleLoginContext.Provider value={{handleLogin, getUserInfo,isLoading,chngIsLoading}}>
+    <HandleLoginContext.Provider value={{handleLogin, getUserInfo,isLoading,chngIsLoading,handleSignupWithFirebase,handleLoginWithFirebase}}>
       <div className='absolute top-[calc(50vh-150px)] flex flex-col gap-y-32'>
         <div className="w-[100%] flex justify-center flex-col">
           <div className='flex flex-col items-center'>

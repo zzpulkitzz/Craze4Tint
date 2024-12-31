@@ -17,13 +17,13 @@ export default function ContactForm() {
   }
 
   return (
-    <div className="sm:w-[500px] w-[350px] mx-auto p-8 absolute top-[170px] left-[50vw] translate-x-[-175px] sm:translate-x-[-250px] translate-y-[10px] sm:translate-y-[10px] bg-gray-100 text-black font-raleway px-[40px] shadow-md">
-      <h1 className="text-3xl font-semibold text-center mb-6">Contact</h1>
+    <div className="sm:w-[500px] w-[350px] mx-auto p-8 absolute top-[170px] left-[50vw] translate-x-[-175px] sm:translate-x-[-250px] translate-y-[10px] sm:translate-y-[10px] bg-white text-black font-raleway px-[40px] shadow-md">
+      <h1 className="text-3xl font-semibold text-center mb-6">Contact Us</h1>
       <div className="mb-6">
         <p className="text-sm">Email: Shynenterprises.info@gmail.com</p>
         <p className="text-sm">Phone:</p>
       </div>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4" action="https://getform.io/f/broojxya" method="POST">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <Label htmlFor="name" className="sr-only">
@@ -32,6 +32,7 @@ export default function ContactForm() {
             <Input
               id="name"
               placeholder="Name"
+              name="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
@@ -46,6 +47,7 @@ export default function ContactForm() {
               id="email"
               type="email"
               placeholder="Email *"
+              name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -61,6 +63,7 @@ export default function ContactForm() {
             id="phone"
             type="tel"
             placeholder="Phone number"
+            name="phone_number"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             className="mt-1 block w-full border-gray-400 focus:border-black focus:ring-0 border-0 border-b-[1px] rounded-[0px]"
@@ -74,6 +77,7 @@ export default function ContactForm() {
             id="comment"
             placeholder="Comment"
             value={comment}
+            name="comment"
             onChange={(e) => setComment(e.target.value)}
             rows={4}
             className="w-full border-gray-300"

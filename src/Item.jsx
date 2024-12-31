@@ -1,7 +1,9 @@
-import { useState, useEffect,useRef } from 'react';
+import { useState, useEffect,useRef,useContext } from 'react';
 import { getFirestore, doc, setDoc ,getDoc} from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
+import { getAuth } from "firebase/auth";
 import { Button } from '@/components/ui/button';
+import { AuthContext } from './contextProvider';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useParams,useLocation } from 'react-router-dom';
 import { fetchPlease } from './Fetch';
@@ -17,6 +19,7 @@ import Carousel from './components/ui/Carousel.jsx';
 
 
 const createStorefrontClient = () => {
+  
   return {
     query: async (query, variables = {}) => {
 
@@ -42,7 +45,6 @@ const createStorefrontClient = () => {
 
 export default function Item() {
   
-  
   const firebaseConfig = {
     apiKey: "AIzaSyD3AWLH7wYyVy7USofDvCLmiE3_u0q4RPo",
     authDomain: "craze4tint-d7bed.firebaseapp.com",
@@ -54,12 +56,16 @@ export default function Item() {
   };
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
+  const {setCartId}=useContext(AuthContext)
   let cartId=localStorage.getItem("cartId")
   console.log(cartId)
   let currentUser=localStorage.getItem("currentUser")
   currentUser=JSON.parse(currentUser)
   const handleCartAction =async ()=>{
-    
+    const auth = getAuth();
+    const currentUser = auth.currentUser;
+    let token=await currentUser.getIdToken()
+    console.log(token)
     let cartId=localStorage.getItem("cartId")
    
     if(cartId!=="null"){
@@ -375,23 +381,34 @@ const prodName = decodeURIComponent(productName);
         
       if (currentUser) {
         console.log(currentUser.email)
+        console.log(data.cartCreate.cart.id)
         // Store cart ID in Firestore
         try {
-          await setDoc(doc(db, 'userCarts', currentUser.email), {
-            cartId: data.cartCreate.cart.id,
-            createdAt: new Date().toISOString(),
-            lastUpdated: new Date().toISOString()
-          });
-          console.log('Cart ID successfully stored in Firestore');
-        } catch (error) {
-          console.error('Error storing cart ID in Firestore:', error);
+          const auth = getAuth();
+          const currentUser = auth.currentUser;
+          let token=await currentUser.getIdToken()
+          console.log(token)
+          setCartId(currentUser.email,data.cartCreate.cart.id)
+        } catch (error) { 
+          console.log(error)
         }
       } else {
         console.log('No user found in localStorage');
       }
     }
   } catch (error) {
-    console.error('Error creating cart:', error);
+    if (error.code === 'permission-denied') {
+      console.error('Permission denied:', {
+        message: error.message,
+        details: error.details,
+        timestamp: new Date().toISOString(),
+        operation: 'read',
+        collection: 'users',
+        docId: '123'
+      });
+      
+   
+    }
   }
 };
       

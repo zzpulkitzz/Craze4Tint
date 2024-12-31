@@ -48,6 +48,11 @@ export default function Footer(){
             rel="noopener noreferrer" className="hover:text-gray-600">
                 <Youtube className="w-5 h-5 hover:scale-125 transition-all" />
             </a>
+
+            <a href="https://www.facebook.com/people/Craze4Tint/61567025540600/" target="_blank" 
+            rel="noopener noreferrer" className="hover:text-gray-600">
+                <Facebook className="w-5 h-5 hover:scale-125 transition-all" />
+            </a>
            
         </div>
 

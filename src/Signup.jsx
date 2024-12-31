@@ -16,7 +16,7 @@ export default function Signup() {
   const [error, setError] = useState('');
   
   const navigate = useNavigate();
-  const {handleLogin,getUseInfo,isLoading,chngIsLoading} = useContext(HandleLoginContext);
+  const {handleLogin,getUseInfo,isLoading,chngIsLoading,handleLoginWithFirebase,handleSignupWithFirebase} = useContext(HandleLoginContext);
 
   const handleSubmit = async (e) => {
 
@@ -77,8 +77,9 @@ export default function Signup() {
               throw new Error(data.data.customerCreate.customerUserErrors[0].message);
             }
             console.log(data)
+            await handleSignupWithFirebase(email,password)
             await handleLogin(email,password)
-           
+            await handleLoginWithFirebase(email,password)
             return data.data.customerCreate;
           } catch (error) {
             console.error('Registration error:', error);

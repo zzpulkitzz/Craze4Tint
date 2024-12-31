@@ -1,12 +1,31 @@
 import React, { useContext, useState,useRef } from 'react';
 import { User, MapPin, ShoppingBag, Heart, Users, Lock, LogOut } from 'lucide-react';
-import { AuthContext } from './contextProvider';
 import { useNavigate ,Outlet,Link} from 'react-router-dom';
 import {  Clock, Settings } from 'lucide-react'
+import { initializeApp } from 'firebase/app';
+import { 
+  getAuth, 
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut as firebaseSignOut 
+} from 'firebase/auth';
+
 
 const UserProfile = () => {
+  const firebaseConfig = {
+    apiKey: "AIzaSyD3AWLH7wYyVy7USofDvCLmiE3_u0q4RPo",
+    authDomain: "craze4tint-d7bed.firebaseapp.com",
+    projectId: "craze4tint-d7bed",
+    storageBucket: "craze4tint-d7bed.firebasestorage.app",
+    messagingSenderId: "786218460338",
+    appId: "1:786218460338:web:02df030c31eb0f5863d5ab",
+    measurementId: "G-X1J18V9CZW"
+  };
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
   const [activeTab, setActiveTab] = useState('My Profile');
-  const {SignOut} =useContext(AuthContext)
+
   const [activeSlide, setActiveSlide] = useState(0)
   const scrollRef = useRef(null)
   const sidebarItems = [
@@ -20,6 +39,16 @@ const UserProfile = () => {
   const currentUser=JSON.parse(localStorage.getItem('currentUser'))
   console.log(currentUser)
   const navigate=useNavigate()
+
+  const handleSignOutWithFirebase = async () => {
+    try {
+      await firebaseSignOut(auth);
+    } catch (error) {
+      console.error('Firebase Logout error:', error);
+      throw error;
+    }
+  };
+
 
   const scrollTo = (index) => {
     setActiveSlide(index)
@@ -82,6 +111,7 @@ const UserProfile = () => {
       if (data.data.customerAccessTokenDelete.userErrors.length > 0) {
         throw new Error(data.data.customerAccessTokenDelete.userErrors[0].message);
       }
+      await handleSignOutWithFirebase()
       localStorage.setItem('token',"null")
       localStorage.setItem('currentUser', "null")
       localStorage.setItem("cartId","null")

@@ -46,7 +46,7 @@ export default function ShoppingCart() {
 
     initializeCart();
   }, []);
-
+  
   // Fetch existing cart
   const fetchCart = async (cartId) => {
     setIsLoading(true);
@@ -201,10 +201,10 @@ export default function ShoppingCart() {
   }else{
   console.log(isLoading)
   return (
-    <div className="max-w-[100vw] mx-auto px-[16px] sm:px-[24px] lg:px-[32px] absolute top-[205px] w-[100%]">
+    <div className="max-w-[100vw] mx-auto px-[16px] sm:px-[24px] lg:px-[32px] absolute top-[150px]  w-[100%]">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-xl font-semibold">SHOPPING BAG ({cartItems.length})</h1>
-        <button className="text-sm underline">FAVOURITES</button>
+        
       </div>
       
       <div className="space-y-6">
