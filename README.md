@@ -1,1 +1,1 @@
-This is the codebase for the website of the Clothing Brand Craze4Tint .
+This is the official codebase for the website of the Delhi based clothing Brand Craze4Tint .
