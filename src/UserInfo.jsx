@@ -2,7 +2,7 @@ import { AuthContext } from './contextProvider';
 import { useContext } from 'react';
 export default function UserInfo(){
    
-    const {SignOut} =useContext(AuthContext)
+    
     const currentUser=JSON.parse(localStorage.getItem('currentUser'))
     console.log(currentUser)
     return  <>

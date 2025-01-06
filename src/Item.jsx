@@ -692,7 +692,7 @@ const prodName = decodeURIComponent(productName);
                 </div>
                 </div>
                 </div>
-    <div className='relative top-[32px] left-[-16px] sm:left-[-24px] lg:left-[-32px] '>
+    <div className='relative top-[32px]   '>
       
     <Footer/>
     </div>
