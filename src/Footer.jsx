@@ -4,7 +4,7 @@ export default function Footer(){
         e.preventDefault();
         // Handle newsletter submission
     };
-    return <footer className=" py-16 px-4 md:px-8 text-gray-100 bg-[rgb(18,18,18)] relative w-[100vw] h-screen top-[50vh] left-[50vw] translate-x-[-50vw] translate-y-[-50vh]">
+    return <footer className=" py-16 px-4 md:px-8 text-gray-100 bg-[rgb(18,18,18)]  w-[100vw] h-screen ">
     {/* Main Content */}
     <div className="max-w-6xl mx-auto">
         {/* Newsletter Section */}

@@ -125,6 +125,7 @@ export default function Navbar() {
                         <div className="relative flex flex-row ">
                             <button 
                                 className={`tshirts border-[1px] border-white px-[10px] hover:text-white hover:bg-black  transition-all duration-300 ${isTshirtOpen? "scale-[1.15]":"null"}`}
+                                
                                 onMouseEnter={() => {
                                         console.log("cdsv")
                                         setIsTshirtOpen(true)
