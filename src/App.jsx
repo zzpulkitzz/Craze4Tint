@@ -27,7 +27,7 @@ if(localStorage.getItem("currentUser")==null){
 
 
   return <div className=''>
-    <div className=' '>
+    <div className=' bg-black'>
     <ScrollContextProvider>
     <RouterProvider router={createBrowserRouter(createRoutesFromElements(
 

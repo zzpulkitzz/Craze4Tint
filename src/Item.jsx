@@ -540,7 +540,7 @@ const prodName = decodeURIComponent(productName);
           </div>
          
       <div className='font-bold font-raleway'>Colors: <span className='font-normal'>{product.title}</span></div>
-      <div className='extra_prod_container grid grid-cols-5 gap-x-4 gap-y-2'>
+      <div className='extra_prod_container grid grid-cols-4 gap-x-4 gap-y-2 w-[90%]'>
       {variantsProd?variantsProd.map((product, index) => 
             
             {
