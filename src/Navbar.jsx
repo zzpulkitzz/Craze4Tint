@@ -198,7 +198,7 @@ export default function Navbar() {
                         </div>
                         <div className="flex items-center">
                             <div className={`search flex flex-row justify-between ${isSearch?"border-[0.7px] border-white border-solid bg-gray-100":""}`}>
-                                <input className={`search_input lg:w-[200px] md:w-[60px] mdd:w-[120px] bg-inherit focus:outline-none text-black pl-[7px] font-raleway font-light`} value={searchText} onChange={(event)=>{
+                                <input className={`search_input lg:w-[200px] md:w-[60px] mdd:w-[120px] w-[48px] bg-inherit focus:outline-none text-black pl-[7px] font-raleway font-light`} value={searchText} onChange={(event)=>{
                                     setSearchText(()=>event.target.value)
                                     
                                 }} onKeyDown={(event) => {
