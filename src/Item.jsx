@@ -468,7 +468,7 @@ const prodName = decodeURIComponent(productName);
 
   return (
  
-    <div className="w-screen py-8 absolute sm:top-[120px] md:top-[110px] top-[90px] xl:flex xl:justify-center xl:items-center xl:flex-col">
+    <div className="w-screen  px-4 sm:px-6 lg:px-8  py-8 absolute sm:top-[120px] md:top-[110px] top-[90px] xl:flex xl:justify-center xl:items-center xl:flex-col overflow-x-hidden">
       <div className="w-[100%] xl:max-w-[1532px] ">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Product Images */}
@@ -692,7 +692,7 @@ const prodName = decodeURIComponent(productName);
                 </div>
                 </div>
                 </div>
-    <div className='relative top-[32px]  '>
+    <div className='relative top-[32px] left-[-16px] sm:left-[-24px] lg:left-[-32px] '>
       
     <Footer/>
     </div>
