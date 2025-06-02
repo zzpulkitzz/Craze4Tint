@@ -23,23 +23,7 @@ export default function Shop() {
   const navigate=useNavigate()
   console.log(search,type)
   // Create an intersection observer reference
-  const observer = useRef();
-
-  function mergeSort(arr) {
-    // Base case: Arrays with a single element are already sorted
-    if (arr.length <= 1) {
-      return arr;
-    }
-  
-    // Split the array into two halves
-    const mid = Math.floor(arr.length / 2);
-    const left = arr.slice(0, mid);
-    const right = arr.slice(mid);
-  
-    // Recursively sort both halves and then merge them
-    return merge(mergeSort(left), mergeSort(right));
-  }
-  
+  const observer = useRef();  
   function merge(left, right) {
     const result = [];
     let leftIndex = 0;
