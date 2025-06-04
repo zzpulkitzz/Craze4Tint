@@ -67,7 +67,7 @@ export default function Item() {
     let token= currentUser? await currentUser.getIdToken() : "null"
 
     let cartId=localStorage.getItem("cartId")
-
+    console.log("r",typeof(cartId))
     if(cartId!=null){
       await addToCart(variantId[sizes.indexOf(selectedSize)].node.id,quantity) 
     }else{
@@ -420,6 +420,7 @@ const prodName = decodeURIComponent(productName);
   
 
   const addToCart = async (variantId, quantity) => {
+
     console.log(variantId)
     console.log(cartId)
     
