@@ -69,6 +69,7 @@ const UserProfile = () => {
   }
   
   async function logOut(){
+    console.log(getAuth())
     const accessToken = localStorage.getItem('token');
       
     const SHOPIFY_STORE_URL = 'https://ecf084-fb.myshopify.com/api/2024-01/graphql.json';
@@ -111,7 +112,7 @@ const UserProfile = () => {
       if (data.data.customerAccessTokenDelete.userErrors.length > 0) {
         throw new Error(data.data.customerAccessTokenDelete.userErrors[0].message);
       }
-      await handleSignOutWithFirebase()
+      
       localStorage.setItem('token',"null")
       localStorage.setItem('currentUser', "null")
       localStorage.setItem("cartId","null")

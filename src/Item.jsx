@@ -64,11 +64,11 @@ export default function Item() {
   const handleCartAction =async ()=>{
     const auth = getAuth();
     const currentUser = auth.currentUser;
-    let token=await currentUser.getIdToken()
-    console.log(token)
+    let token= currentUser? await currentUser.getIdToken() : "null"
+
     let cartId=localStorage.getItem("cartId")
-   
-    if(cartId!=="null"){
+
+    if(cartId!=null){
       await addToCart(variantId[sizes.indexOf(selectedSize)].node.id,quantity) 
     }else{
       await createCart(variantId[sizes.indexOf(selectedSize)].node.id,quantity)
@@ -540,7 +540,7 @@ const prodName = decodeURIComponent(productName);
           </div>
          
       <div className='font-bold font-raleway'>Colors: <span className='font-normal'>{product.title}</span></div>
-      <div className='extra_prod_container grid grid-cols-4 gap-x-4 gap-y-2 w-[100%]'>
+      <div className='extra_prod_container grid lg:grid-cols-5 xsm:grid-cols-4 gap-x-4 gap-y-2 w-[100%]'>
       {variantsProd?variantsProd.map((product, index) => 
             
             {
