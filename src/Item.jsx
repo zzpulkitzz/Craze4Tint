@@ -68,7 +68,7 @@ export default function Item() {
 
     let cartId=localStorage.getItem("cartId")
     console.log("r",typeof(cartId))
-    if(cartId!=null){
+    if(cartId!=null && cartId!="null" ){
       await addToCart(variantId[sizes.indexOf(selectedSize)].node.id,quantity) 
     }else{
       await createCart(variantId[sizes.indexOf(selectedSize)].node.id,quantity)
