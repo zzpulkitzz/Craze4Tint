@@ -541,32 +541,29 @@ const prodName = decodeURIComponent(productName);
           </div>
          
       <div className='font-bold font-raleway'>Colors: <span className='font-normal'>{product.title}</span></div>
-      <div className='extra_prod_container grid lg:grid-cols-5 xsm:grid-cols-4 gap-x-4 gap-y-2 w-[100%]'>
-      {variantsProd?variantsProd.map((product, index) => 
-            
-            {
-              console.log(product.name)
-              return (
-              <div
-                key={`${product.id}-${index}`}
-               
-                className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:scale-110 transition-all duration-150"
-                onClick={() => window.location.href = `/shop/${product.id}?name=${product.name}`}
-              >
-                <div className="relative">
-                  <img src={product.image} alt={product.name} className="  object-cover" />
-                  {product.isBestSeller && (
-                    <div className="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 text-xs font-semibold rounded">
-                      BEST SELLER
-                    </div>
-                  )}
-               
-                </div>
-               
+      <div className='extra_prod_container relative w-[100%] overflow-hidden'>
+  <div className='flex gap-x-4 overflow-x-auto scrollbar-hide pb-4' style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+    {variantsProd ? variantsProd.map((product, index) => {
+      console.log(product.name)
+      return (
+        <div
+          key={`${product.id}-${index}`}
+          className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:scale-110 transition-all duration-150 flex-shrink-0 w-[17%] "
+          onClick={() => window.location.href = `/shop/${product.id}?name=${product.name}`}
+        >
+          <div className="relative h-full">
+            <img src={product.image} alt={product.name} className="w-full object-cover h-full" />
+            {product.isBestSeller && (
+              <div className="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 text-xs font-semibold rounded">
+                BEST SELLER
               </div>
-              )}):""}
-           
-                </div>
+            )}
+          </div>
+        </div>
+      )
+    }) : ""}
+  </div>
+</div>
 
           
 
@@ -649,7 +646,7 @@ const prodName = decodeURIComponent(productName);
       
       <div className="mt-[7vh]">
         <h1 className='font-smeibold text-3xl xl:text-4xl my-[20px] mx-auto flex justify-center'>YOU MAY ALSO LIKE</h1>
-      <div className='extra_prod_container grid  grid-cols-4 gap-6 '>
+      <div className='you_may_also_like_container grid  grid-cols-4 gap-6 '>
       {extraProd.map((product, index) => 
             
             {
