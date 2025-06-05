@@ -548,7 +548,7 @@ const prodName = decodeURIComponent(productName);
       return (
         <div
           key={`${product.id}-${index}`}
-          className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:scale-110 transition-all duration-150 flex-shrink-0 w-[17%] "
+          className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:scale-110 transition-all duration-150 flex-shrink-0 w-[12%] "
           onClick={() => window.location.href = `/shop/${product.id}?name=${product.name}`}
         >
           <div className="relative h-full">

@@ -155,8 +155,8 @@ export default function Home() {
         
         
         <div className="w-[100vw]  px-4  ">
-        <h1 className="block text-xl sm:text-4xl tracking-wide mt-4 text-center font-semibold">Winter Collections</h1>
-            <div className="w-full overflow-hidden">
+        {/* <h1 className="block text-xl sm:text-4xl tracking-wide mt-4 text-center font-semibold">Winter Collections</h1> */}
+            {/* <div className="w-full overflow-hidden">
                 <div
                     ref={containerRef}
                     className="scroll_container flex flex-row gap-4 sm:gap-6 lg:justify-around py-8 transition-all duration-300 ease-linear overflow-x-auto w-[100%]"
@@ -206,7 +206,7 @@ export default function Home() {
                         </div>
                     ))}
                 </div>
-            </div>
+            </div> */}
             </div>
             
             <div className="w-[100vw]  px-4   ">
@@ -219,7 +219,7 @@ export default function Home() {
                     {prodCarousel.map((product, index) => (
                         <div
                             key={`${product.node.id}-${index}`}
-                            className=" bg-white rounded-lg shadow-md  flex-shrink-0 xsm:w-[30vw] lg:w-[25vw] xl:w-[20vw]" onClick={() => window.location.href = `/shop/${product.node.id}?name=${product.node.title}`}
+                            className=" bg-white rounded-lg shadow-md  flex-shrink-0 xsm:w-[23vw] lg:w-[19vw] xl:w-[15vw]" onClick={() => window.location.href = `/shop/${product.node.id}?name=${product.node.title}`}
                         >
                             <div className="relative overflow-hidden w-[100%]">
                                 <img
